@@ -2,8 +2,8 @@ require 'unicorn'
 require 'unicorn/prewarm/version'
 
 module Unicorn
-  def self.prewarm(server)
-    get = Net::HTTP::Get.new('/')
+  def self.prewarm(server, path: '/')
+    get = Net::HTTP::Get.new(path)
     fake = Unicorn::Prewarm::FakeSocket.new(get)
     server.send(:process_client, fake)
     fake.response
